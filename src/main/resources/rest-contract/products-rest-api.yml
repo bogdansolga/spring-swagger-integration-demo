@@ -1,0 +1,203 @@
+swagger: '2.0'
+info:
+  description: Products service REST API Documentation
+  version: '0.1'
+  title: Products service REST API Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8080'
+
+basePath: /
+
+tags:
+  - name: product-controller
+    description: Product Controller
+
+paths:
+  /product:
+    get:
+      tags:
+        - product-controller
+      summary: getAll
+      operationId: getAllUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ProductDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    post:
+      tags:
+        - product-controller
+      summary: create
+      operationId: createUsingPOST
+      consumes:
+        - application/xml
+        - application/json;charset=UTF-8
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: productDTO
+          description: productDTO
+          required: true
+          schema:
+            $ref: '#/definitions/ProductDTO'
+        - name: Content-Type
+          in: header
+          description: Content-Type
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+  '/product/{id}':
+    get:
+      tags:
+        - product-controller
+      summary: getProduct
+      operationId: getProductUsingGET
+      consumes:
+        - application/json
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    put:
+      tags:
+        - product-controller
+      summary: update
+      operationId: updateUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: productDTO
+          description: productDTO
+          required: true
+          schema:
+            $ref: '#/definitions/ProductDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    delete:
+      tags:
+        - product-controller
+      summary: delete
+      operationId: deleteUsingDELETE
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+definitions:
+  ResponseEntity:
+    type: object
+    properties:
+      body:
+        type: object
+      statusCode:
+        type: string
+        enum:
+          - '200'
+          - '204'
+          - '400'
+          - '401'
+          - '402'
+          - '403'
+          - '404'
+
+      statusCodeValue:
+        type: integer
+        format: int32
+  ProductDTO:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int32
+      price:
+        type: number
+        format: double
+      productName:
+        type: string
