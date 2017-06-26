@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.sg</groupId>
-	<artifactId>swagger.demo</artifactId>
+	<artifactId>swagger.integration.demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>swagger.demo</name>
-	<description>SG Swagger demo</description>
+	<name>Spring and Swagger integration demo</name>
+	<description>SG Spring and Swagger integration demo</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
