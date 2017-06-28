@@ -54,7 +54,7 @@ public class ProductService {
     }
 
     private Function<ProductDTO, Product> getDTOConverter() {
-        return dto -> new Product(dto.getId(), dto.getProductName(), dto.getPrice());
+        return dto -> new Product(dto.getId(), dto.getProductName(), dto.getPrice(), null);
     }
 
     private Function<Product, ProductDTO> getProductConverter() {

@@ -1,11 +1,16 @@
 package com.sg.swagger.demo.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "Product")
 public class Product implements Serializable {
 
     @Id
@@ -15,11 +20,15 @@ public class Product implements Serializable {
 
     private double price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId")
+    private Order order;
+
     public Product() {
     }
 
-    public Product(final int id, final String name, final double price) {
-        this.id = id; this.name = name; this.price = price;
+    public Product(final int id, final String name, final double price, final Order order) {
+        this.id = id; this.name = name; this.price = price; this.order = order;
     }
 
     public int getId() {
@@ -46,6 +55,14 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,11 +70,12 @@ public class Product implements Serializable {
         Product product = (Product) o;
         return id == product.id &&
                 Double.compare(product.price, price) == 0 &&
-                Objects.equals(name, product.name);
+                Objects.equals(name, product.name) &&
+                Objects.equals(order, product.order);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price);
+        return Objects.hash(id, name, price, order);
     }
 }
