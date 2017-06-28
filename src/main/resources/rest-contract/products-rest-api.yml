@@ -1,28 +1,176 @@
 swagger: '2.0'
 info:
-  description: Products service REST API Documentation
+  description: Products store REST API Documentation
   version: '0.1'
-  title: Products service REST API Documentation
+  title: Products store REST API Documentation
   termsOfService: 'urn:tos'
   contact: {}
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0'
 host: 'localhost:8080'
-
 basePath: /
 
 tags:
   - name: product-controller
-    description: Product Controller
+    description: Product service API
+  - name: order-controller
+    description: Order service API
 
 paths:
+  /order:
+    get:
+      tags:
+        - order-controller
+      summary: getAll
+      operationId: getAllUsingGET
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/OrderDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    post:
+      tags:
+        - order-controller
+      summary: create
+      operationId: createUsingPOST
+      consumes:
+        - application/json;charset=UTF-8
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: orderDTO
+          description: orderDTO
+          required: true
+          schema:
+            $ref: '#/definitions/OrderDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+  '/order/{id}':
+    get:
+      tags:
+        - order-controller
+      summary: getOrder
+      operationId: getOrder
+      consumes:
+        - application/json
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/OrderDTO'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    put:
+      tags:
+        - order-controller
+      summary: update
+      operationId: updateOrder
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+        - in: body
+          name: orderDTO
+          description: orderDTO
+          required: true
+          schema:
+            $ref: '#/definitions/OrderDTO'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+    delete:
+      tags:
+        - order-controller
+      summary: delete
+      operationId: deleteOrder
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ResponseEntity'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
   /product:
     get:
       tags:
         - product-controller
       summary: getAll
-      operationId: getAllUsingGET
+      operationId: getAllProducts
       consumes:
         - application/json
       produces:
@@ -40,17 +188,15 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
-
     post:
       tags:
         - product-controller
       summary: create
-      operationId: createUsingPOST
+      operationId: createProduct
       consumes:
-        - application/xml
         - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - in: body
           name: productDTO
@@ -58,11 +204,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/ProductDTO'
-        - name: Content-Type
-          in: header
-          description: Content-Type
-          required: true
-          type: string
       responses:
         '200':
           description: OK
@@ -84,7 +225,7 @@ paths:
       summary: getProduct
       operationId: getProductUsingGET
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
         - application/json;charset=UTF-8
       parameters:
@@ -110,7 +251,7 @@ paths:
       tags:
         - product-controller
       summary: update
-      operationId: updateUsingPUT
+      operationId: updateProduct
       consumes:
         - application/json
       produces:
@@ -146,7 +287,7 @@ paths:
       tags:
         - product-controller
       summary: delete
-      operationId: deleteUsingDELETE
+      operationId: deleteProduct
       consumes:
         - application/json
       produces:
@@ -163,8 +304,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/ResponseEntity'
-        '204':
-          description: No Content
+
         '401':
           description: Unauthorized
         '403':
@@ -180,16 +320,25 @@ definitions:
         type: string
         enum:
           - '200'
-          - '204'
           - '400'
           - '401'
-          - '402'
-          - '403'
           - '404'
 
       statusCodeValue:
         type: integer
         format: int32
+
+  OrderDTO:
+    type: object
+    properties:
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/ProductDTO'
+      totalPrice:
+        type: number
+        format: double
+
   ProductDTO:
     type: object
     properties:
