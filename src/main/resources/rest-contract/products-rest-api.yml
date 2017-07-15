@@ -24,7 +24,7 @@ paths:
       tags:
         - order-controller
       summary: getAll
-      operationId: getAllProducts
+      operationId: getAllOrders
       consumes:
         - application/json
       produces:
