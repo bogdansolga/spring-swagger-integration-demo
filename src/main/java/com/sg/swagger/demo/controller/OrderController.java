@@ -17,7 +17,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping(
-        path = "/order"
+        path = "/order",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
 )
 public class OrderController {
 
@@ -30,8 +32,7 @@ public class OrderController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            path = "",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE
+            path = ""
     )
     public ResponseEntity create(@RequestBody OrderDTO orderDTO) {
         orderService.create(orderDTO);
@@ -40,8 +41,7 @@ public class OrderController {
 
     @RequestMapping(
             method = RequestMethod.GET,
-            path = "/{id}",
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            path = "/{id}"
     )
     public OrderDTO getOrder(@PathVariable final int id) {
         return orderService.get(id);

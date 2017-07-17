@@ -26,9 +26,9 @@ paths:
       summary: getAll
       operationId: getAllOrders
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       responses:
         '200':
           description: OK
@@ -51,7 +51,7 @@ paths:
       consumes:
         - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - in: body
           name: orderDTO
@@ -80,7 +80,7 @@ paths:
       summary: getOrder
       operationId: getOrderById
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
         - application/json;charset=UTF-8
       parameters:
@@ -108,9 +108,9 @@ paths:
       summary: update
       operationId: updateOrderById
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - name: id
           in: path
@@ -144,9 +144,9 @@ paths:
       summary: delete
       operationId: deleteOrderById
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - name: id
           in: path
@@ -174,9 +174,9 @@ paths:
       summary: getAll
       operationId: getAllProducts
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       responses:
         '200':
           description: OK
@@ -256,9 +256,9 @@ paths:
       summary: update
       operationId: updateProduct
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - name: id
           in: path
@@ -292,9 +292,9 @@ paths:
       summary: delete
       operationId: deleteProductById
       consumes:
-        - application/json
+        - application/json;charset=UTF-8
       produces:
-        - '*/*'
+        - application/json;charset=UTF-8
       parameters:
         - name: id
           in: path

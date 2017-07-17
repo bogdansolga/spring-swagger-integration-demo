@@ -22,7 +22,9 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(
-        path = "/product"
+        path = "/product",
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+        produces = MediaType.APPLICATION_JSON_UTF8_VALUE
 )
 public class ProductController {
 
@@ -42,9 +44,7 @@ public class ProductController {
      */
     @RequestMapping(
             method = RequestMethod.POST,
-            path = "",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            path = ""
     )
     public ResponseEntity create(@RequestBody @Valid ProductDTO productDTO) {
         productService.create(productDTO);
@@ -60,9 +60,7 @@ public class ProductController {
      */
     @RequestMapping(
             method = RequestMethod.GET,
-            path = "/{id}",
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            path = "/{id}"
     )
     public ProductDTO getProduct(@PathVariable final int id) {
         return productService.get(id);
